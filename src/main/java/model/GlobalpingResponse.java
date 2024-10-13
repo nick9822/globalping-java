@@ -17,7 +17,7 @@ public class GlobalpingResponse {
 
   Map<String, List<String>> headers;
   int statusCode;
-  byte[] response;
+  private byte[] response;
 
   public <T> T to(Class<T> cl) {
     try (InputStreamReader reader = new InputStreamReader(new ByteArrayInputStream(response),

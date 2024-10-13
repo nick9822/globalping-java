@@ -10,6 +10,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import model.enums.TargetType;
 
+/**
+ * This class represents target of the measurement.
+ * <p>A publicly reachable measurement target. Typically a hostname, an IPv4 address, or IPv6
+ * address, depending on the measurement type.</p>
+ * <p><i>Note: Support for IPv6 targets is currently considered experimental.</i></p>
+ */
 @JsonAdapter(MeasurementTargetTypeAdapter.class)
 public class MeasurementTarget {
 
@@ -28,6 +34,13 @@ public class MeasurementTarget {
     value = text;
   }
 
+  /**
+   * Constructor to safely creates instance of the class, pre-emptively checks if target is valid.
+   *
+   * @param ttype {@link TargetType} type of the target Hostname, IPv4, IPv6
+   * @param text  {@link String} target value
+   * @throws PayloadException when type does not match the given value
+   */
   public MeasurementTarget(TargetType ttype, String text) throws PayloadException {
     switch (ttype) {
       case IPv4:

@@ -2,6 +2,10 @@ package model.enums;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Enum represening geographic region name based on UN [Standard Country or Area Codes for
+ * Statistical Use (M49)](https://unstats.un.org/unsd/methodology/m49/)
+ */
 public enum RegionName {
   @SerializedName("Northern Africa")
   NORTHERN_AFRICA,

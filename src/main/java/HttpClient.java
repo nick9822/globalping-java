@@ -66,7 +66,7 @@ public class HttpClient {
       }
       res.setStatusCode(responseCode);
       res.setHeaders(conn.getHeaderFields());
-      GlobalpingApiError.raise(responseStream, conn);
+      throw new GlobalpingApiError(responseStream, conn);
     }
     return res;
   }
