@@ -1,6 +1,7 @@
 package model;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -44,15 +45,12 @@ public class GlobalpingResponse {
    * @param <T> the type of the response.
    * @param cl  the {@link Class} object representing the type of response expected.
    * @return an instance of {@code T}.
+   * @throws IOException if something is wrong with the underlying stream.
    */
-  public <T> T to(Class<T> cl) {
+  public <T> T to(Class<T> cl) throws IOException {
     try (InputStreamReader reader = new InputStreamReader(new ByteArrayInputStream(response),
         StandardCharsets.UTF_8)) {
-      System.out.println(new String(response, StandardCharsets.UTF_8));
       return CustomGson.get().fromJson(reader, cl);
-    } catch (Exception e) {
-      e.printStackTrace();
-      return null;
     }
   }
 }

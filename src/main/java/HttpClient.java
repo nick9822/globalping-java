@@ -21,15 +21,11 @@ public class HttpClient {
 
     conn.setRequestMethod(request.getMethod());
 
-    System.out.println(request.getMethod());
     if (request.getToken() != null && !request.getToken().isEmpty()) {
-      System.out.println("setting token");
       conn.setRequestProperty("Authorization", "Bearer " + request.getToken());
     }
 
     if (request.getPayload() != null) {
-      System.out.println(new String(request.getPayload().toJsonBytes(), StandardCharsets.UTF_8));
-
       conn.setDoOutput(true);
       conn.setRequestProperty("Content-Type", "application/json");
 
@@ -93,7 +89,6 @@ public class HttpClient {
   public <T extends GlobalpingResponse> T sendRequest(GlobalpingRequest request, Class<T> cl)
       throws IOException, GlobalpingApiError {
     GlobalpingResponse res = sendHttpRequest(request);
-    System.out.println(res);
     return res.to(cl);
   }
 }
