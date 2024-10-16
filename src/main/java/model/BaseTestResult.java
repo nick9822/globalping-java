@@ -12,14 +12,33 @@ import lombok.Getter;
 import lombok.ToString;
 import model.enums.CustomGson;
 
+/**
+ * This class represents a base class for all the measurement results. it contains status and
+ * rawOutput which is common for all the measurements.
+ */
 @ToString
 @Getter
 public class BaseTestResult {
 
+  /**
+   * Status of a Measurement i.e. finished
+   */
   String status;
+  /**
+   * The raw output of the test. Can be presented to users but is not meant to be parsed by
+   * clients.
+   * <p><i>Note: Please use the test specific values by calling corresponding method for automated
+   * processing.</i></p>
+   * <p><i>Example: calling {@link MeasurementResponse#getDnsTestResults()} will return in
+   * {@link FinishedDnsTestResult} i.e. results of DNS Measurement Tests.</i></p>
+   */
   String rawOutput;
 }
 
+/**
+ * This class represents a variant of BaseTestResult which holds the whole response as JsonElement.
+ * It is later used to deserialize test specific BaseTestResult variants.
+ */
 class BaseTestResultGeneric extends BaseTestResult {
 
   JsonElement value;
@@ -33,6 +52,9 @@ class BaseTestResultGeneric extends BaseTestResult {
   }
 }
 
+/**
+ * Gson custom serializer for BaseTestResult.
+ */
 class BaseTestResultSerializer implements
     JsonSerializer<BaseTestResult>, JsonDeserializer<BaseTestResult> {
 

@@ -10,6 +10,11 @@ import com.google.gson.annotations.JsonAdapter;
 import java.lang.reflect.Type;
 
 
+/**
+ * This class represents Dns measurement test results and holds a generic value of it. Since
+ * {@link FinishedDnsTestResult} comes in two variants {@link FinishedSimpleDnsTestResult} and
+ * {@link FinishedTraceDnsTestResult}. We can hold generic value here.
+ */
 @JsonAdapter(FinishedDnsTestResultSerializer.class)
 public class FinishedDnsTestResult extends BaseTestResult {
 
@@ -20,6 +25,9 @@ public class FinishedDnsTestResult extends BaseTestResult {
   }
 }
 
+/**
+ * Gson custom serializer for FinishedDnsTestResult.
+ */
 class FinishedDnsTestResultSerializer implements
     JsonSerializer<FinishedDnsTestResult>, JsonDeserializer<FinishedDnsTestResult> {
 

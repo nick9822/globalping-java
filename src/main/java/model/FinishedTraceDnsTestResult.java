@@ -1,10 +1,12 @@
 package model;
 
 import java.util.List;
-import java.util.Map;
 import lombok.Getter;
 import lombok.ToString;
 
+/**
+ * This class represents a DNS measurement test with {@code trace} enabled.
+ */
 @Getter
 @ToString
 public class FinishedTraceDnsTestResult extends BaseTestResult {

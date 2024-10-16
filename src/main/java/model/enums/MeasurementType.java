@@ -11,10 +11,10 @@ public enum MeasurementType {
   mtr("mtr"),
   http("http");
 
-  String text;
+  final String text;
 
   MeasurementType(String text) {
-    text = text;
+    this.text = text;
   }
 
   @Override

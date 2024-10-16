@@ -2,7 +2,6 @@ import error.GlobalpingApiError;
 import java.io.IOException;
 import model.CreateMeasurementResponse;
 import model.GlobalpingRequest;
-import model.GlobalpingResponse;
 import model.Limits;
 import model.MeasurementRequest;
 import model.MeasurementResponse;
@@ -10,15 +9,21 @@ import model.Probes;
 
 
 /**
- * A client for interacting with the Globalping API
+ * A client for interacting with the Globalping API.
  * <p>This class holds the API URL and token required to authenticate and make requests.
  * The token is optional but it needs to be provided as blank.</p> Use the static {@code init}
  * method to create a new instance of the client.
  */
 public class GlobalpingClient {
 
-  String api_url;
-  String api_token;
+  /**
+   * URL of Globalping service.
+   */
+  String apiUrl;
+  /**
+   * Globalping Auth Token.
+   */
+  String apiToken;
 
   private GlobalpingClient() {
   }
@@ -26,18 +31,20 @@ public class GlobalpingClient {
   /**
    * This static method provides an instance of GlobalpingClient.
    *
-   * @param api_url   URL to the API service
-   * @param api_token API service Token, use "" if not required
-   * @return GlobalpingClient
    * <h3>Usage Example:</h3>
    * <pre>{@code
-   *  GlobalpingClient gpclient = GlobalpingClient.init("https://api.globalping.io", "");
+   *        GlobalpingClient gpclient = GlobalpingClient.init("https://api.globalping.io", "");
+   *       }
    * </pre>
+   *
+   * @param apiUrl   URL to the API service
+   * @param apiToken API service Token, use "" if not required.
+   * @return {@link GlobalpingClient}
    */
-  public static GlobalpingClient init(String api_url, String api_token) {
+  public static GlobalpingClient init(String apiUrl, String apiToken) {
     GlobalpingClient client = new GlobalpingClient();
-    client.api_url = api_url;
-    client.api_token = api_token;
+    client.apiUrl = apiUrl;
+    client.apiToken = apiToken;
     return client;
   }
 
@@ -46,8 +53,7 @@ public class GlobalpingClient {
    * runs asynchronously. You can retrieve Id from a {@link CreateMeasurementResponse} and use it to
    * retrieve its current state using {@link #pollForMeasurement(String)}.</p>
    * <p>Alternatively, you can retrieve its current state at the URL returned in the
-   * {@code Location}
-   * header.</p>
+   * {@code Location} header.</p>
    * <h5>Client guidelines</h5>
    * <ul>
    * <li>If the application is running in interactive mode, use {@code withInProgressUpdates(true)}
@@ -81,36 +87,36 @@ public class GlobalpingClient {
    * </li>
    * </ul>
    *
+   * <h3>Usage Example:</h3>
+   * <pre>{@code
+   *      GlobalpingClient gpclient = GlobalpingClient.init("https://api.globalping.io", "");
+   *
+   *      MeasurementRequest measurementRequest= new MeasurementRequestBuilder(MeasurementType.ping,
+   *      new MeasurementTarget(TargetType.HostName, "cdn.jsdelivr.net"))
+   *      .withLocations(new MeasurementLocations(
+   *            Arrays.asList(MeasurementLocationOption.withRegion(RegionName.NORTHERN_AMERICA))))
+   *      .withMeasurementOptions(new PingOptionsBuilder().build())
+   *      .build();
+   *
+   *      CreateMeasurementResponse res = gpclient.requestMeasurement(measurementRequest);
+   *     }
+   * </pre>
+   *
    * @param request the {@link MeasurementRequest} containing parameters needed to perform the
    *                measurement.
    * @return a {@link CreateMeasurementResponse} with the details of the measurement result.
-   * @throws IOException        if the there is an underlying connection I/O
-   * @throws GlobalpingApiError if there is an error on the server
-   *                            <h3>Usage Example:</h3>
-   *                            <pre>{@code
-   *                             GlobalpingClient gpclient = GlobalpingClient.init("https://api.globalping.io", "");
-   *
-   *                             MeasurementRequest measurementRequest = new MeasurementRequestBuilder(MeasurementType.ping,
-   *                                    new MeasurementTarget(TargetType.HostName, "cdn.jsdelivr.net"))
-   *                                    .withLocations(new MeasurementLocations(
-   *                                        Arrays.asList(MeasurementLocationOption.withRegion(RegionName.NORTHERN_AMERICA))))
-   *                                    .withMeasurementOptions(new PingOptionsBuilder().build())
-   *                                    .build();
-   *
-   *                             CreateMeasurementResponse res = gpclient.requestMeasurement(measurementRequest);
-   *                            }
-   *                            </pre>
+   * @throws IOException        if the there is an underlying connection I/O.
+   * @throws GlobalpingApiError if there is an error on the server.
    */
   CreateMeasurementResponse requestMeasurement(MeasurementRequest request)
       throws IOException, GlobalpingApiError {
-    HttpClient httpClient = new HttpClient();
     GlobalpingRequest req = new GlobalpingRequest();
-    req.setUrl(api_url + "/v1/measurements");
-    req.setToken(api_token);
+    req.setUrl(apiUrl + "/v1/measurements");
+    req.setToken(apiToken);
     req.setMethod("POST");
     req.setPayload(request);
 
-    return httpClient.sendRequest(req, CreateMeasurementResponse.class);
+    return new HttpClient().sendRequest(req, CreateMeasurementResponse.class);
   }
 
   /**
@@ -118,46 +124,43 @@ public class GlobalpingClient {
    * <p>Tip: A link to this endpoint is returned in the Location response header when creating
    * the measurement.</p>
    * <p><i>Note: Measurements are typically available for up to 7 days after creation.</i></p>
+   * <h3>Usage Example:</h3>
+   * <pre>{@code
+   *      GlobalpingClient gpclient = GlobalpingClient.init("https://api.globalping.io", "");
+   *      MeasurementResponse res = gpclient.pollForMeasurement(res.getId());
+   *      res.getResults() // get generic results with List<BaseTestResult>
+   *      res.getDnsTestResults() // get measurement type related i.e. List<FinishedPingTestResult>
+   *      }
+   * </pre>
    *
    * @param id the {@link String} measurement one wants to retrieve.
    * @return a {@link MeasurementResponse} with the details of the measurement result.
    * @throws IOException        if the there is an underlying connection I/O
    * @throws GlobalpingApiError if there is an error on the server
-   *                            <h3>Usage Example:</h3>
-   *                            <pre>{@code
-   *                             GlobalpingClient gpclient = GlobalpingClient.init("https://api.globalping.io", "");
-   *                             MeasurementResponse res = gpclient.pollForMeasurement(res.getId());
-   *                             res.getResults() // get generic results with List<BaseTestResult>
-   *                             res.getDnsTestResults() // get results depending on the measurement i.e. List<FinishedPingTestResult>
-   *                            }
-   *                            </pre>
    */
   MeasurementResponse pollForMeasurement(String id) throws IOException, GlobalpingApiError {
-    HttpClient httpClient = new HttpClient();
     GlobalpingRequest req = new GlobalpingRequest();
-    req.setUrl(api_url + "/v1/measurements/" + id);
-    req.setToken(api_token);
+    req.setUrl(apiUrl + "/v1/measurements/" + id);
+    req.setToken(apiToken);
     req.setMethod("GET");
 
-    return httpClient.sendRequest(req, MeasurementResponse.class);
+    return new HttpClient().sendRequest(req, MeasurementResponse.class);
   }
 
   Probes getProbes() throws IOException, GlobalpingApiError {
-    HttpClient httpClient = new HttpClient();
     GlobalpingRequest req = new GlobalpingRequest();
-    req.setUrl(api_url + "/v1/probes");
+    req.setUrl(apiUrl + "/v1/probes");
     req.setMethod("GET");
 
-    return httpClient.sendRequest(req, Probes.class);
+    return new HttpClient().sendRequest(req, Probes.class);
   }
 
   Limits getLimits() throws IOException, GlobalpingApiError {
-    HttpClient httpClient = new HttpClient();
     GlobalpingRequest req = new GlobalpingRequest();
-    req.setUrl(api_url + "/v1/limits");
-    req.setToken(api_token);
+    req.setUrl(apiUrl + "/v1/limits");
+    req.setToken(apiToken);
     req.setMethod("GET");
 
-    return httpClient.sendRequest(req, Limits.class);
+    return new HttpClient().sendRequest(req, Limits.class);
   }
 }

@@ -15,5 +15,5 @@ CreateMeasurementResponse res = gpclient.requestMeasurement(measurementRequest);
 Thread.sleep(500);
 
 MeasurementResponse res1 = gpclient.pollForMeasurement(res.getId());
-List<FinishedPingTestResult> = res1.getPingTestResults()
+List<FinishedPingTestResult> fgp = res1.getPingTestResults();
 ```

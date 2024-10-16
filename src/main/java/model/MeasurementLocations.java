@@ -30,7 +30,7 @@ public class MeasurementLocations {
    * returned in the same order as in the previous measurement. Measurement type and options are not
    * reused and need to be specified in the request.
    * <p><i>Note: this option only works for the lifetime of the original measurement
-   * and will result in a `422` response for expired or invalid `id` values.</p>
+   * and will result in a `422` response for expired or invalid `id` values.</i></p>
    */
   String lastMeasurementId;
   List<MeasurementLocationOption> locationOptions;
@@ -39,7 +39,7 @@ public class MeasurementLocations {
   }
 
   /**
-   * Constructor to create an instance with just list of {@link MeasurementLocationOption}
+   * Constructor to create an instance with just list of {@link MeasurementLocationOption}.
    *
    * @param locationOptions list of {@link MeasurementLocationOption}
    */
@@ -48,7 +48,7 @@ public class MeasurementLocations {
   }
 
   /**
-   * Constructor to create an instance with just last measurement id
+   * Constructor to create an instance with just last measurement id.
    *
    * @param lastMeasurementId last measurement id
    */
@@ -57,6 +57,9 @@ public class MeasurementLocations {
   }
 }
 
+/**
+ * Gson custom serializer for {@link MeasurementLocations}.
+ */
 class MeasurementLocationsTypeAdapter extends TypeAdapter<MeasurementLocations> {
 
   @Override

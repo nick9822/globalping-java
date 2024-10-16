@@ -5,17 +5,52 @@ import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import lombok.ToString;
 
+/**
+ * This class represents Location property of a Globalping Probe.
+ */
 @ToString
 public class ProbeLocation {
 
+  /**
+   * A two-letter continent code.
+   */
   String continent;
+  /**
+   * A geographic region name based on UN <a href="https://unstats.un.org/unsd/
+   * methodology/m49/">[Standard Country or Area Codes for Statistical Use (M49)]</a>.
+   */
   String region;
+  /**
+   * A two-letter country code based on <a
+   * href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements">ISO
+   * 3166-1 alpha-2</a>.
+   */
   String country;
+  /**
+   * A two-letter <a
+   * href="https://www.faa.gov/air_traffic/publications/atpubs/cnt_html/appendix_a.html">US state
+   * code</a>.
+   */
   String state;
+  /**
+   * A city name in English.
+   */
   String city;
+  /**
+   * An autonomous system number (ASN).
+   */
   Integer asn;
+  /**
+   * A network name, such as "Google LLC" or "DigitalOcean, LLC".
+   */
   String network;
+  /**
+   * The latitude of probe location.
+   */
   Double latitude;
+  /**
+   * The longitude of probe location.
+   */
   Double longitude;
 
   ProbeLocation(JsonObject o) {
@@ -30,6 +65,7 @@ public class ProbeLocation {
     this.longitude = getAsTOrNull(o.get("longitude"), Double.class);
   }
 
+  @SuppressWarnings("CheckStyle")
   <T extends Comparable<? super T>> T getAsTOrNull(JsonElement o, Class<T> cl) {
     if (o.getClass() == JsonNull.class) {
       return null;

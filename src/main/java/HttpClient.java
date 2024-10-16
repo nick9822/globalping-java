@@ -1,17 +1,19 @@
 import error.GlobalpingApiError;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import lombok.Cleanup;
-
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.nio.charset.StandardCharsets;
+import lombok.Cleanup;
 import model.GlobalpingRequest;
 import model.GlobalpingResponse;
-import model.MeasurementResponse;
 
+/**
+ * This class represents an object which managed raw HTTP connection. It does not hold any values
+ * but contains critical methods to manage HTTP connection, request and responses.
+ */
 public class HttpClient {
 
   private static HttpURLConnection createConnection(GlobalpingRequest request) throws IOException {
@@ -71,6 +73,23 @@ public class HttpClient {
     return res;
   }
 
+  /**
+   * The only public method in this class sends a request and parses the response into expected
+   * class of type parameter.
+   * <h3>Example Usage:</h3>
+   * <pre>{@code
+   *    HttpClient client = new HttpClient();
+   *    CreateMeasurementResponse res = client.sendRequest(req, CreateMeasurementResponse.class);
+   * }
+   * </pre>
+   *
+   * @param <T>     the type of the response, which must extend {@link GlobalpingResponse}.
+   * @param request the {@link GlobalpingRequest} with required information.
+   * @param cl      the {@link Class} object representing the type of response expected.
+   * @return an instance of the response type {@code T}, deserialized from the API response.
+   * @throws IOException        if there is an error on underlying connection.
+   * @throws GlobalpingApiError if there is an error on the Globalping service.
+   */
   public <T extends GlobalpingResponse> T sendRequest(GlobalpingRequest request, Class<T> cl)
       throws IOException, GlobalpingApiError {
     GlobalpingResponse res = sendHttpRequest(request);

@@ -13,6 +13,9 @@ import lombok.Getter;
 import lombok.ToString;
 import model.enums.CustomGson;
 
+/**
+ * This class represents a wrapper around a list of probes.
+ */
 @ToString
 @Getter
 @JsonAdapter(ProbesTypeAdapter.class)
@@ -25,6 +28,9 @@ public class Probes extends GlobalpingResponse {
   }
 }
 
+/**
+ * Gson custom serializer for Probes.
+ */
 class ProbesTypeAdapter extends TypeAdapter<Probes> {
 
   @Override
@@ -37,7 +43,7 @@ class ProbesTypeAdapter extends TypeAdapter<Probes> {
   }
 
   @Override
-  public Probes read(JsonReader jsonReader) throws IOException {
+  public Probes read(JsonReader jsonReader) {
     Type listType = new TypeToken<ArrayList<Probe>>() {
     }.getType();
     List<Probe> list = CustomGson.get().fromJson(jsonReader, listType);

@@ -1,10 +1,12 @@
 package model;
 
 import java.util.Map;
-import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
 
+/**
+ * This class represents Http measurement test results and it extends {@link BaseTestResult}.
+ */
 @Getter
 @ToString
 public class FinishedHttpTestResult extends BaseTestResult {

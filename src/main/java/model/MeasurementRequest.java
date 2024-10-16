@@ -1,13 +1,11 @@
 package model;
 
 import com.google.gson.annotations.JsonAdapter;
-
 import error.PayloadException;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import lombok.Getter;
 import lombok.ToString;
-import model.enums.ContinentCode;
 import model.enums.CustomGson;
 import model.enums.MeasurementType;
 
@@ -16,6 +14,7 @@ import model.enums.MeasurementType;
  * the payload safely.
  * <p>
  * Use {@link MeasurementRequestBuilder} to build the Measurement Request.
+ * </p>
  */
 @ToString
 @Getter
@@ -24,11 +23,11 @@ public class MeasurementRequest {
   MeasurementType type;
   MeasurementTarget target;
   /**
-   * Indicates whether you want to get partial results while the measurement is still running:
+   * Indicates whether you want to get partial results while the measurement is still running.
    * <ul>
    *   <li>If {@code true}, partial results are returned as soon as they are available, and you can
-   *   present them to the user in real time. Note that only the first 5 tests from the {@code results}
-   *   array will update in real time.</li>
+   *   present them to the user in real time. Note that only the first 5 tests from the
+   *   {@code results} array will update in real time.</li>
    *   <li>If {@code false}, the result of each test is updated only after the test finishes.</li>
    * </ul>
    * defaults to false
@@ -48,7 +47,7 @@ public class MeasurementRequest {
 
   /**
    * Constructor which takes {@link MeasurementRequestBuilder} and creates a
-   * {@link MeasurementRequest}
+   * {@link MeasurementRequest}.
    *
    * @param builder {@link MeasurementRequestBuilder}
    * @throws PayloadException if not a valid payload
@@ -95,21 +94,12 @@ public class MeasurementRequest {
     }
   }
 
-
-  public MeasurementOption getMeasurementOptions() {
-    if (Objects.requireNonNull(type) == MeasurementType.ping) {
-      return ((MeasurementOptionGeneric) measurementOptions).retrieveMeasurementOption(
-          PingOptions.class);
-    }
-    return measurementOptions;
-  }
-
   public byte[] toJsonBytes() {
     return CustomGson.get().toJson(this).getBytes(StandardCharsets.UTF_8);
   }
 
   /**
-   * This class represent a builder of Measurement Request.
+   * This class represent a builder for Measurement Request.
    *
    * @see MeasurementRequestBuilder#MeasurementRequestBuilder(MeasurementType, MeasurementTarget)
    */
@@ -124,21 +114,22 @@ public class MeasurementRequest {
     MeasurementOption measurementOptions;
 
     /**
-     * Constructor of Builder {@link MeasurementRequest}
+     * Constructor of Builder {@link MeasurementRequest}.
+     * <h3>Example Usage:</h3>
+     * <pre>{@code
+     *      MeasurementRequest measurementRequest = new MeasurementRequestBuilder(
+     *      MeasurementType.ping,
+     *      new MeasurementTarget(TargetType.HostName, "cdn.jsdelivr.net"))
+     *      .withLocations(new MeasurementLocations(
+     *        Arrays.asList(MeasurementLocationOption.withRegion(RegionName.NORTHERN_AMERICA),
+     *        MeasurementLocationOption.withCountry("JP"))))
+     *      .withMeasurementOptions(new PingOptionsBuilder().withPackets(3).withIpVersion(4)
+     *      .build()).build();
+     *     }
+     * </pre>
      *
      * @param type   {@link MeasurementType}
      * @param target {@link MeasurementTarget}
-     *               <h3>Example Usage:</h3>
-     *               <pre>{@code
-     *                 MeasurementRequest measurementRequest = new MeasurementRequestBuilder(MeasurementType.ping,
-     *                       new MeasurementTarget(TargetType.HostName, "cdn.jsdelivr.net"))
-     *                       .withLocations(new MeasurementLocations(
-     *                           Arrays.asList(MeasurementLocationOption.withRegion(RegionName.NORTHERN_AMERICA),
-     *                               MeasurementLocationOption.withCountry("JP"))))
-     *                       .withMeasurementOptions(new PingOptionsBuilder().withPackets(3).withIpVersion(4).build())
-     *                       .build();
-     *               }
-     *               </pre>
      */
     public MeasurementRequestBuilder(MeasurementType type, MeasurementTarget target) {
       this.type = type;
@@ -146,7 +137,7 @@ public class MeasurementRequest {
     }
 
     /**
-     * Chain method for setting value of inProgressUpdates
+     * Chain method for setting value of inProgressUpdates.
      *
      * @param inProgressUpdates {@link MeasurementRequest#inProgressUpdates}
      * @return {@link MeasurementRequestBuilder}
@@ -157,7 +148,7 @@ public class MeasurementRequest {
     }
 
     /**
-     * Chain method for setting value of locations
+     * Chain method for setting value of locations.
      *
      * @param locations {@link MeasurementLocations}
      * @return {@link MeasurementRequestBuilder}
@@ -168,7 +159,7 @@ public class MeasurementRequest {
     }
 
     /**
-     * Chain method for setting value of limit
+     * Chain method for setting value of limit.
      *
      * @param limit {@link MeasurementRequest#limit}
      * @return {@link MeasurementRequestBuilder}
@@ -179,7 +170,7 @@ public class MeasurementRequest {
     }
 
     /**
-     * Chain method for setting value of measurementOptions
+     * Chain method for setting value of measurementOptions.
      *
      * @param measurementOptions {@link MeasurementOption}
      * @return {@link MeasurementRequestBuilder}
@@ -190,7 +181,7 @@ public class MeasurementRequest {
     }
 
     /**
-     * Final method in the chain to build a {@link MeasurementRequest}
+     * Final method in the chain to build {@link MeasurementRequest} object.
      *
      * @return {@link MeasurementRequest}
      */

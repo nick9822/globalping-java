@@ -1,12 +1,9 @@
 package model.enums;
 
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
-import java.lang.reflect.Type;
-
+/**
+ * Enum representing various DNS query types like {@code A}, {@code MX}, {@code TXT} etc. supported
+ * by Globalping service.
+ */
 public enum DnsQueryType {
   A,
   AAAA,

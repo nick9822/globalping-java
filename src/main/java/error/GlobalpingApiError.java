@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.nio.charset.StandardCharsets;
-import model.GlobalpingResponse;
 import model.enums.CustomGson;
 
 /**
@@ -16,7 +15,8 @@ import model.enums.CustomGson;
  * on the HTTP response code as follows:</p>
  * <ul>
  * <li>{@link IOException} if an I/O error occurs while reading the response.</li>
- * <li>{@link ValidationException} if the API returns a 400 (Bad Request with Validation errors).</li>
+ * <li>{@link ValidationException} if the API returns a 400 (Bad Request with Validation errors).
+ * </li>
  * <li>{@link UnauthorizedException} if the API returns a 401 (Unauthorized).</li>
  * <li>{@link ForbiddenException} if the API returns a 403 (Forbidden).</li>
  * <li>{@link NotFoundException} if the API returns a 404 (Not Found).</li>
@@ -43,6 +43,16 @@ public class GlobalpingApiError extends Exception {
     raise(responseStream, conn);
   }
 
+  /**
+   * This public method is used to trigger an exception depending on the Gloobalping service
+   * response.
+   *
+   * @param responseStream {@link ByteArrayOutputStream} response from the service.
+   * @param conn           {@link HttpURLConnection} underlying HTTP connection.
+   * @throws IOException        gets triggered when there is an error in underlying I/O.
+   * @throws GlobalpingApiError excepted and gets triggered depending on the connection response
+   *                            code.
+   */
   public static void raise(ByteArrayOutputStream responseStream, HttpURLConnection conn)
       throws IOException, GlobalpingApiError {
     int responseCode = conn.getResponseCode();
