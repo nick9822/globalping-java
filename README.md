@@ -52,9 +52,7 @@ MeasurementRequest measurementRequest = new MeasurementRequestBuilder(Measuremen
 CreateMeasurementResponse res = gpclient.requestMeasurement(measurementRequest);
 
 // wait for 500ms
-Thread.
-
-sleep(500);
+Thread.sleep(500);
 
 MeasurementResponse res1 = gpclient.pollForMeasurement(res.getId());
 List<FinishedPingTestResult> fgp = res1.getPingTestResults();
@@ -74,9 +72,7 @@ MeasurementRequest measurementRequest = new MeasurementRequestBuilder(Measuremen
 CreateMeasurementResponse res = gpclient.requestMeasurement(measurementRequest);
 
 // wait for 500ms
-Thread.
-
-sleep(500);
+Thread.sleep(500);
 
 MeasurementResponse res1 = gpclient.pollForMeasurement(res.getId());
 List<FinishedTracerouteTestResult> fgp = res1.getTracerouteTestResults();
@@ -98,9 +94,7 @@ MeasurementRequest measurementRequest = new MeasurementRequestBuilder(Measuremen
 CreateMeasurementResponse res = gpclient.requestMeasurement(measurementRequest);
 
 // wait for 500ms
-Thread.
-
-sleep(500);
+Thread.sleep(500);
 
 MeasurementResponse res1 = gpclient.pollForMeasurement(res.getId());
 List<FinishedTraceDnsTestResult> fgp = res1.getDnsTestResults();
@@ -120,9 +114,7 @@ MeasurementRequest measurementRequest = new MeasurementRequestBuilder(Measuremen
 CreateMeasurementResponse res = gpclient.requestMeasurement(measurementRequest);
 
 // wait for 500ms
-Thread.
-
-sleep(500);
+Thread.sleep(500);
 
 MeasurementResponse res1 = gpclient.pollForMeasurement(res.getId());
 List<FinishedSimpleDnsTestResult> fgp = res1.getDnsTestResults();
@@ -142,9 +134,7 @@ MeasurementRequest measurementRequest = new MeasurementRequestBuilder(Measuremen
 CreateMeasurementResponse res = gpclient.requestMeasurement(measurementRequest);
 
 // wait for 500ms
-Thread.
-
-sleep(500);
+Thread.sleep(500);
 
 MeasurementResponse res1 = gpclient.pollForMeasurement(res.getId());
 List<FinishedMtrTestResult> fgp = res1.getMtrTestResults();
@@ -154,9 +144,7 @@ List<FinishedMtrTestResult> fgp = res1.getMtrTestResults();
 
 ```java
 MeasurementHttpRequest mhr = new MeasurementHttpRequest();
-mhr.
-
-setMethod(HttpMethod.GET);
+mhr.setMethod(HttpMethod.GET);
 
 MeasurementRequest measurementRequest = new MeasurementRequestBuilder(MeasurementType.http,
     new MeasurementTarget(TargetType.HostName, "www.google.com"))
@@ -170,9 +158,7 @@ MeasurementRequest measurementRequest = new MeasurementRequestBuilder(Measuremen
 CreateMeasurementResponse res = gpclient.requestMeasurement(measurementRequest);
 
 // wait for 500ms
-Thread.
-
-sleep(500);
+Thread.sleep(500);
 
 MeasurementResponse res1 = gpclient.pollForMeasurement(res.getId());
 List<FinishedHttpTestResult> fgp = res1.getHttpTestResults();
