@@ -1,3 +1,12 @@
+# Globalping Java client library
+
+## Installation
+
+### Requirements
+
+- Java 1.8 or later
+
+## Usage
 ```java
 GlobalpingClient gpclient = GlobalpingClient.init("https://api.globalping.io", "");
 
