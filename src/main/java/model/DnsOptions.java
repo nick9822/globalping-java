@@ -1,7 +1,10 @@
 package model;
 
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.gson.annotations.JsonAdapter;
@@ -26,7 +29,7 @@ public class DnsOptions implements MeasurementOption {
   Integer port = 53;
   MeasurementProtocol protocol = MeasurementProtocol.UDP;
   Integer ipVersion;
-  Boolean trace = false;
+  boolean trace = false;
 
   /**
    * Constructor which allows creation of {@link DnsOptions} using {@link DnsOptionsBuilder}.
@@ -64,7 +67,7 @@ public class DnsOptions implements MeasurementOption {
     Integer port = 53;
     MeasurementProtocol protocol = MeasurementProtocol.UDP;
     Integer ipVersion;
-    Boolean trace = false;
+    boolean trace = false;
 
 
     /**
@@ -176,7 +179,8 @@ public class DnsOptions implements MeasurementOption {
  *  }
  * </pre>
  */
-class DnsQueryTypeSerializer implements JsonSerializer<DnsQueryType> {
+class DnsQueryTypeSerializer implements JsonSerializer<DnsQueryType>,
+    JsonDeserializer<DnsQueryType> {
 
   @Override
   public JsonElement serialize(DnsQueryType dnsQueryType, Type type,
@@ -184,6 +188,13 @@ class DnsQueryTypeSerializer implements JsonSerializer<DnsQueryType> {
     JsonObject o = new JsonObject();
     o.addProperty("type", dnsQueryType.toString());
     return jsonSerializationContext.serialize(o);
+  }
+
+  @Override
+  public DnsQueryType deserialize(JsonElement jsonElement, Type type,
+      JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+    String dnsQt = jsonElement.getAsJsonObject().get("type").getAsString();
+    return DnsQueryType.valueOf(dnsQt);
   }
 }
 
