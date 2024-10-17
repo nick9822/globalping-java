@@ -2,7 +2,34 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <groupId>org.jsdelivr</groupId>
   <artifactId>globalping-java</artifactId>
+  <version>1.0.0</version>
+
+  <name>${project.groupId}:${project.artifactId}</name>
+  <description>Globalping Java client library</description>
+  <url>https://globalping.io</url>
+
+  <licenses>
+    <license>
+      <name>The Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Nikesh Tawde</name>
+      <email>nick9822@gmail.com</email>
+      <organizationUrl>https://github.com/nick9822</organizationUrl>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:git:git://github.com/nick9822/globalping-java.git</connection>
+    <developerConnection>scm:git:ssh://github.com:nick9822/globalping-java.git</developerConnection>
+    <url>https://github.com/nick9822/globalping-java/tree/main</url>
+  </scm>
 
   <build>
     <plugins>
@@ -41,7 +68,6 @@
       <version>5.8.1</version>
     </dependency>
   </dependencies>
-  <groupId>org.jsdelivr</groupId>
 
   <modelVersion>4.0.0</modelVersion>
 
@@ -50,7 +76,5 @@
     <maven.compiler.target>8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-
-  <version>1.0-SNAPSHOT</version>
 
 </project>
