@@ -11,7 +11,7 @@ import model.GlobalpingRequest;
 import model.GlobalpingResponse;
 
 /**
- * This class represents an object which managed raw HTTP connection. It does not hold any values
+ * This class represents an object which manages raw HTTP connection. It does not hold any values
  * but contains critical methods to manage HTTP connection, request and responses.
  */
 public class HttpClient {

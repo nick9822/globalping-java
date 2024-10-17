@@ -59,6 +59,16 @@ public class MeasurementRequest {
     locations = builder.locations;
     limit = builder.limit;
     measurementOptions = builder.measurementOptions;
+
+    if (limit != null && locations != null) {
+      for (MeasurementLocationOption loc : locations.locationOptions) {
+        if (loc.limit != null) {
+          throw new PayloadException(
+              "limit per location is not allowed when a global limit is set");
+        }
+      }
+    }
+
     if (measurementOptions == null) {
       throw new PayloadException("measurement options are required");
     }
@@ -96,6 +106,10 @@ public class MeasurementRequest {
 
   public byte[] toJsonBytes() {
     return CustomGson.get().toJson(this).getBytes(StandardCharsets.UTF_8);
+  }
+
+  public String toJson() {
+    return CustomGson.get().toJson(this);
   }
 
   /**
@@ -163,8 +177,12 @@ public class MeasurementRequest {
      *
      * @param limit {@link MeasurementRequest#limit}
      * @return {@link MeasurementRequestBuilder}
+     * @throws PayloadException if limit param is invalid.
      */
-    public MeasurementRequestBuilder withLimit(int limit) {
+    public MeasurementRequestBuilder withLimit(int limit) throws PayloadException {
+      if (limit < 1 || limit > 500) {
+        throw new PayloadException("limit should be in the range of 1 to 500");
+      }
       this.limit = limit;
       return this;
     }
