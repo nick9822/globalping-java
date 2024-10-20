@@ -3,7 +3,6 @@ package model;
 import com.google.gson.annotations.JsonAdapter;
 import error.PayloadException;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import lombok.Getter;
 import lombok.ToString;
 import model.enums.CustomGson;

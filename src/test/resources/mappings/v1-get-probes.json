@@ -1,0 +1,17 @@
+{
+  "id": "9b993d80-5d07-44c8-85f0-224d8058a09c",
+  "request": {
+    "url": "/v1/probes",
+    "method": "GET"
+  },
+  "response": {
+    "status": 202,
+    "body": "[\n  {\n    \"version\": \"0.20.0\",\n    \"location\": {\n      \"continent\": \"NA\",\n      \"region\": \"Northern America\",\n      \"country\": \"US\",\n      \"state\": \"VA\",\n      \"city\": \"Ashburn\",\n      \"asn\": 14618,\n      \"network\": \"Amazon.com, Inc.\",\n      \"latitude\": 39.0437,\n      \"longitude\": -77.4875\n    },\n    \"tags\": [\n      \"aws-us-east-1\",\n      \"datacenter-network\"\n    ],\n    \"resolvers\": [\n      \"private\"\n    ]\n  }\n]",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  },
+  "uuid": "9b993d80-5d07-44c8-85f0-224d8058a09c",
+  "persistent": true,
+  "insertionIndex": 1
+}

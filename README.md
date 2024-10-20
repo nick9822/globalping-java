@@ -27,6 +27,26 @@ MeasurementResponse res1 = gpclient.pollForMeasurement(res.getId());
 List<FinishedPingTestResult> fgp = res1.getPingTestResults();
 ```
 
+## Async Usage
+```java
+GlobalpingClient gpclient = GlobalpingClient.init("https://api.globalping.io", "");
+
+MeasurementRequest measurementRequest = new MeasurementRequestBuilder(MeasurementType.ping,
+    new MeasurementTarget(TargetType.HostName, "cdn.jsdelivr.net"))
+    .withLocations(new MeasurementLocations(
+        Arrays.asList(MeasurementLocationOption.withRegion(RegionName.NORTHERN_AMERICA),
+            MeasurementLocationOption.withCountry("JP"))))
+    .withMeasurementOptions(new PingOptionsBuilder().withPackets(3).withIpVersion(4).build())
+    .build();
+
+gpclient.requestAndPollMeasurementAsync(measurementRequest).thenAccept(res -> {
+      System.out.println(res.getPingTestResults());
+    }).exceptionally(e -> {
+      Assertions.fail("Something went wrong: " + e.getMessage());
+      return null;
+    });
+```
+
 ## Examples
 
 - [Ping measurement](#ping-measurement-with-8-packets-north-america--japan)
@@ -150,7 +170,7 @@ MeasurementRequest measurementRequest = new MeasurementRequestBuilder(Measuremen
     new MeasurementTarget(TargetType.HostName, "www.google.com"))
     .withLocations(new MeasurementLocations(
         Arrays.asList(MeasurementLocationOption.withRegion(RegionName.NORTHERN_AMERICA),
-            MeasurementLocationOption.withCountry("IN"))))
+            MeasurementLocationOption.withCountry("JP"))))
     .withMeasurementOptions(new HttpOptionsBuilder()
         .withRequest(mhr).build())
     .build();

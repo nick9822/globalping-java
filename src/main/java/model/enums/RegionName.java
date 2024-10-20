@@ -4,8 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Enum representing geographic region name based on UN <a href="https://unstats.un.org/unsd/
- * methodology/m49/">[Standard Country or Area Codes for
- * Statistical Use (M49)]</a>.
+ * methodology/m49/">[Standard Country or Area Codes for Statistical Use (M49)]</a>.
  */
 public enum RegionName {
   @SerializedName("Northern Africa")

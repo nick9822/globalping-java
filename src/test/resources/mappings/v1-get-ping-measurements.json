@@ -1,0 +1,17 @@
+{
+  "id": "3dcef543-0367-4517-91d8-87240fc3e18f",
+  "request": {
+    "url": "/v1/measurements/PY5fMsREMmIq45VR",
+    "method": "GET"
+  },
+  "response": {
+    "status": 202,
+    "body": "{   \"id\": \"nzGzfAGL7sZfUs3c\",   \"type\": \"ping\",   \"status\": \"finished\",   \"createdAt\": \"2023-07-14T18:25:52.414Z\",   \"updatedAt\": \"2023-07-14T18:25:53.207Z\",   \"target\": \"cdn.jsdelivr.net\",   \"probesCount\": 1,   \"measurementOptions\": {     \"packets\": 2   },   \"results\": [     {       \"probe\": {         \"continent\": \"OC\",         \"region\": \"Australia and New Zealand\",         \"country\": \"NZ\",         \"state\": null,         \"city\": \"Auckland\",         \"asn\": 61138,         \"longitude\": 174.76667,         \"latitude\": -36.86667,         \"network\": \"Zappie Host LLC\",         \"tags\": [           \"datacenter-network\"         ],         \"resolvers\": [           \"1.1.1.1\",           \"8.8.8.8\"         ]       },       \"result\": {         \"status\": \"finished\",         \"rawOutput\": \"PING jsdelivr.map.fastly.net (151.101.129.229) 56(84) bytes of data.\\n64 bytes from 151.101.129.229 (151.101.129.229): icmp_seq=1 ttl=59 time=24.2 ms\\n64 bytes from 151.101.129.229 (151.101.129.229): icmp_seq=2 ttl=59 time=24.2 ms\\n\\n--- jsdelivr.map.fastly.net ping statistics ---\\n2 packets transmitted, 2 received, 0% packet loss, time 201ms\\nrtt min/avg/max/mdev = 24.174/24.183/24.193/0.009 ms\",         \"resolvedAddress\": \"151.101.129.229\",         \"resolvedHostname\": \"151.101.129.229\",         \"timings\": [           {             \"ttl\": 59,             \"rtt\": 24.2           },           {             \"ttl\": 59,             \"rtt\": 24.2           }         ],         \"stats\": {           \"min\": 24.174,           \"max\": 24.193,           \"avg\": 24.183,           \"total\": 2,           \"loss\": 0,           \"rcv\": 2,           \"drop\": 0         }       }     }   ] }",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  },
+  "uuid": "3dcef543-0367-4517-91d8-87240fc3e18f",
+  "persistent": true,
+  "insertionIndex": 1
+}

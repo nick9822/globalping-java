@@ -5,9 +5,9 @@ import error.PayloadException;
 import model.DnsOptions.DnsOptionsBuilder;
 import model.enums.DnsQueryType;
 import model.enums.MeasurementProtocol;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
 
 class DnsOptionsTest {
 

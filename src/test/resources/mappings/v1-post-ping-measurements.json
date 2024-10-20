@@ -1,0 +1,17 @@
+{
+  "id": "dc8d0877-b7d3-43e7-816e-7449b14ea27b",
+  "request": {
+    "url": "/v1/measurements",
+    "method": "POST"
+  },
+  "response": {
+    "status": 200,
+    "body": "{\"id\": \"PY5fMsREMmIq45VR\",\"probesCount\": 1}",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  },
+  "uuid": "dc8d0877-b7d3-43e7-816e-7449b14ea27b",
+  "persistent": true,
+  "insertionIndex": 0
+}

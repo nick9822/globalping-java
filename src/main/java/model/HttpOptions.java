@@ -3,10 +3,7 @@ package model;
 import error.PayloadException;
 import java.nio.charset.StandardCharsets;
 import lombok.ToString;
-import model.DnsOptions.DnsOptionsBuilder;
-import model.MtrOptions.MtrOptionsBuilder;
 import model.enums.CustomGson;
-import model.enums.DnsQueryType;
 import model.enums.MeasurementHttpProtocol;
 
 /**

@@ -1,0 +1,19 @@
+{
+  "id": "b1f251bd-5d78-49b9-bd29-04d43d698911",
+  "scenarioName": "Limits",
+  "requiredScenarioState": "UNAUTH",
+  "request": {
+    "url": "/v1/limits",
+    "method": "GET"
+  },
+  "response": {
+    "status": 202,
+    "body": "{\n  \"rateLimit\": {\n    \"measurements\": {\n      \"create\": {\n        \"type\": \"ip\",\n        \"limit\": 100,\n        \"remaining\": 95,\n        \"reset\": 3599\n      }\n    }\n  }\n}",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  },
+  "uuid": "b1f251bd-5d78-49b9-bd29-04d43d698911",
+  "persistent": true,
+  "insertionIndex": 1
+}

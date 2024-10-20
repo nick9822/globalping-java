@@ -1,11 +1,14 @@
 import error.GlobalpingApiError;
 import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+import lombok.extern.slf4j.Slf4j;
 import model.CreateMeasurementResponse;
 import model.GlobalpingRequest;
 import model.Limits;
 import model.MeasurementRequest;
 import model.MeasurementResponse;
 import model.Probes;
+import model.enums.MeasurementStatus;
 
 
 /**
@@ -14,6 +17,7 @@ import model.Probes;
  * The token is optional but it needs to be provided as blank.</p> Use the static {@code init}
  * method to create a new instance of the client.
  */
+@Slf4j
 public class GlobalpingClient {
 
   /**
@@ -24,6 +28,7 @@ public class GlobalpingClient {
    * Globalping Auth Token.
    */
   String apiToken;
+
 
   private GlobalpingClient() {
   }
@@ -145,6 +150,65 @@ public class GlobalpingClient {
     req.setMethod("GET");
 
     return new HttpClient().sendRequest(req, MeasurementResponse.class);
+  }
+
+  /**
+   * Creates a new measurement and returns a future of type {@link CompletableFuture}. This method
+   * can be used to request a measurement and poll continuously for each 500ms until the request is
+   * finished/failed.
+   * <h3>Usage Example:</h3>
+   * <pre>{@code
+   *      GlobalpingClient gpclient = GlobalpingClient.init("https://api.globalping.io", "");
+   *      gpclient.requestAndPollMeasurementAsync(measurementRequest).thenAccept(res -> {
+   *       try {
+   *         System.out.println(res.getPingTestResults());
+   *       } catch (ResultException e) {
+   *         System.err.println(e.getMessage());
+   *       }
+   *      }).exceptionally(e -> {
+   *       System.err.println("Something went wrong: " + e.getMessage());
+   *       return null;
+   *      });
+   * }
+   * </pre>
+   *
+   * @param request {@link MeasurementRequest} request payload
+   * @return {@link CompletableFuture} which will resolve into a {@link MeasurementResponse}
+   * @throws IOException        if there is an error in underlying connection
+   * @throws GlobalpingApiError if there is an error on the server
+   */
+  CompletableFuture<MeasurementResponse> requestAndPollMeasurementAsync(MeasurementRequest request)
+      throws IOException, GlobalpingApiError {
+    GlobalpingRequest req = new GlobalpingRequest();
+    req.setUrl(apiUrl + "/v1/measurements");
+    req.setToken(apiToken);
+    req.setMethod("POST");
+    req.setPayload(request);
+
+    CreateMeasurementResponse mres = new HttpClient().sendRequest(req,
+        CreateMeasurementResponse.class);
+    log.info("measurement request created, polling starts in 500ms");
+
+    return CompletableFuture.supplyAsync(() -> {
+      while (true) {
+        try {
+          Thread.sleep(500);
+          MeasurementResponse mr = pollForMeasurement(mres.getId());
+          if (mr.getStatus() != MeasurementStatus.IN_PROGRESS) {
+            log.info("measurement is finished");
+            return mr;
+          } else {
+            log.info("measurement in progress, retrying in 500ms");
+          }
+        } catch (IOException | GlobalpingApiError e) {
+          log.error("error in polling");
+          throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+          log.error("polling interrupted");
+          throw new RuntimeException("polling interrupted", e);
+        }
+      }
+    });
   }
 
   Probes getProbes() throws IOException, GlobalpingApiError {

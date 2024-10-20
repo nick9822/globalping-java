@@ -1,0 +1,28 @@
+{
+  "id": "a6a87959-aaf7-453a-ae2f-048810eb2655",
+  "scenarioName": "Limits",
+  "requiredScenarioState": "AUTH",
+  "request": {
+    "url": "/v1/limits",
+    "method": "GET",
+    "headers": {
+      "Authorization": {
+        "and": [
+          {
+            "contains": "Bearer"
+          }
+        ]
+      }
+    }
+  },
+  "response": {
+    "status": 202,
+    "body": "{\n  \"rateLimit\": {\n    \"measurements\": {\n      \"create\": {\n        \"type\": \"user\",\n        \"limit\": 250,\n        \"remaining\": 240,\n        \"reset\": 3599\n      }\n    }\n  },\n  \"credits\": {\n    \"remaining\": 1000\n  }\n}",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  },
+  "uuid": "a6a87959-aaf7-453a-ae2f-048810eb2655",
+  "persistent": true,
+  "insertionIndex": 1
+}
