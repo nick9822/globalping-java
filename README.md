@@ -55,6 +55,8 @@ gpclient.requestAndPollMeasurementAsync(measurementRequest).thenAccept(res -> {
 - [Dns measurement](#dns-measurement-mx--trace-disabled-north-america--japan)
 - [Mtr measurement](#mtr-measurement-north-america--japan)
 - [Http measurement](#http-measurement-north-america--japan)
+- [Probes](#probes)
+- [Limits](#limits)
 
 ### Ping measurement with 8 packets (North America & Japan)
 
@@ -81,6 +83,8 @@ List<FinishedPingTestResult> fgp = res1.getPingTestResults();
 ### Traceroute measurement (North America & Japan)
 
 ```java
+GlobalpingClient gpclient = GlobalpingClient.init("https://api.globalping.io", "");
+
 MeasurementRequest measurementRequest = new MeasurementRequestBuilder(MeasurementType.traceroute,
     new MeasurementTarget(TargetType.HostName, "cdn.jsdelivr.net"))
     .withLocations(new MeasurementLocations(
@@ -101,6 +105,8 @@ List<FinishedTracerouteTestResult> fgp = res1.getTracerouteTestResults();
 ### Dns measurement (MX & Trace enabled) (North America & Japan)
 
 ```java
+GlobalpingClient gpclient = GlobalpingClient.init("https://api.globalping.io", "");
+
 MeasurementRequest measurementRequest = new MeasurementRequestBuilder(MeasurementType.dns,
     new MeasurementTarget(TargetType.HostName, "cdn.jsdelivr.net"))
     .withLocations(new MeasurementLocations(
@@ -123,6 +129,8 @@ List<FinishedTraceDnsTestResult> fgp = res1.getDnsTestResults();
 ### Dns measurement (MX & Trace disabled) (North America & Japan)
 
 ```java
+GlobalpingClient gpclient = GlobalpingClient.init("https://api.globalping.io", "");
+
 MeasurementRequest measurementRequest = new MeasurementRequestBuilder(MeasurementType.dns,
     new MeasurementTarget(TargetType.HostName, "cdn.jsdelivr.net"))
     .withLocations(new MeasurementLocations(
@@ -143,6 +151,8 @@ List<FinishedSimpleDnsTestResult> fgp = res1.getDnsTestResults();
 ### Mtr measurement (North America & Japan)
 
 ```java
+GlobalpingClient gpclient = GlobalpingClient.init("https://api.globalping.io", "");
+
 MeasurementRequest measurementRequest = new MeasurementRequestBuilder(MeasurementType.mtr,
     new MeasurementTarget(TargetType.HostName, "cdn.jsdelivr.net"))
     .withLocations(new MeasurementLocations(
@@ -163,6 +173,8 @@ List<FinishedMtrTestResult> fgp = res1.getMtrTestResults();
 ### Http measurement (North America & Japan)
 
 ```java
+GlobalpingClient gpclient = GlobalpingClient.init("https://api.globalping.io", "");
+
 MeasurementHttpRequest mhr = new MeasurementHttpRequest();
 mhr.setMethod(HttpMethod.GET);
 
@@ -182,4 +194,18 @@ Thread.sleep(500);
 
 MeasurementResponse res1 = gpclient.pollForMeasurement(res.getId());
 List<FinishedHttpTestResult> fgp = res1.getHttpTestResults();
+```
+
+### Probes
+
+```java
+GlobalpingClient gpclient = GlobalpingClient.init("https://api.globalping.io", "");
+Probes res = gpclient.getProbes();
+```
+
+### Limits
+
+```java
+GlobalpingClient gpclient = GlobalpingClient.init("https://api.globalping.io", "");
+Probes res = gpclient.getLimits();
 ```
