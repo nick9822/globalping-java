@@ -1,5 +1,9 @@
 # Globalping Java client library
 
+[![Maven Central](https://img.shields.io/badge/maven--central-v1.0.0-blue)](https://mvnrepository.com/artifact/in.arvx/globalping-java)
+[![javadoc](https://javadoc.io/badge2/in.arvx/globalping-java/javadoc.svg)](https://javadoc.io/doc/in.arvx/globalping-java)
+[![Coverage Status](https://coveralls.io/repos/github/nick9822/globalping-java/badge.svg?branch=main)](https://coveralls.io/github/nick9822/globalping-java?branch=main)
+
 ## Installation
 
 ### Requirements
