@@ -6,6 +6,22 @@
 
 - Java 1.8 or later
 
+### Gradle users
+Add this dependency to your project's build file:
+```
+implementation "in.arvx:globalping-java:1.0.0"
+```
+
+### Maven users
+Add this dependency to your project's POM:
+```xml
+<dependency>
+  <groupId>in.arvx</groupId>
+  <artifactId>globalping-java</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+
 ## Usage
 ```java
 GlobalpingClient gpclient = GlobalpingClient.init("https://api.globalping.io", "");
